@@ -16,24 +16,31 @@ public class JsonUtils {
     public static final String API_MOST_POPULAR = "/movie/popular";
     public static final String API_TOP_RATED = "/movie/top_rated";
 
+    public static final String RESULTS = "results";
+    public static final String ID = "id";
+    public static final String TITLE = "title";
+    public static final String OVERVIEW = "overview";
+    public static final String POSTER_PATH = "poster_path";
 
-
-    public static List<Movie> ParseMoviesJS(String json) throws JSONException {
-
+    public static List<Movie> ParseMoviesJSON(String json) throws JSONException {
         ArrayList<Movie> movies = new ArrayList<>();
-
         JSONObject jsonObj = new JSONObject(json);
 
-        return movies;
-    }
+        JSONArray results = jsonObj.getJSONArray(RESULTS);
 
-    private static List<String> convertToList(JSONArray jsonArray) throws JSONException {
-        List<String> strings = new ArrayList<String>();
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject movie = results.getJSONObject(i);
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            strings.add(jsonArray.optString(i));
+            int id = movie.getInt(ID);
+            String title = movie.getString(TITLE);
+            String overview = movie.getString(OVERVIEW);
+            String poster_path = movie.getString(POSTER_PATH);
+
+            Movie movieData = new Movie(id, title, overview, poster_path);
+            movies.add(movieData);
         }
-        return strings;
+
+        return movies;
     }
 }
 
