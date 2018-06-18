@@ -5,8 +5,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Movie implements Parcelable {
+    private int mId;
     private String mTitle;
-    private String mImageURL;
+    private String mOverview;
+    private String mPoster_Path;
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
         public Movie createFromParcel(Parcel in) {
@@ -18,9 +20,11 @@ public class Movie implements Parcelable {
         }
     };
 
-    public Movie(String title, String imageURL) {
+    public Movie(int id, String title, String overview, String posterPath) {
+        mId = id;
         mTitle = title;
-        mImageURL = imageURL;
+        mOverview = overview;
+        mPoster_Path = posterPath;
     }
 
     @Override
@@ -30,12 +34,16 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(mId);
         out.writeString(mTitle);
-        out.writeString(mImageURL);
+        out.writeString(mOverview);
+        out.writeString(mPoster_Path);
     }
 
     private Movie(Parcel in) {
+        mId = in.readInt();
         mTitle = in.readString();
-        mImageURL = in.readString();
+        mOverview = in.readString();
+        mPoster_Path = in.readString();
     }
 }
