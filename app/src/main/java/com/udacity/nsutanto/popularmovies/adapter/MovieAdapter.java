@@ -48,12 +48,13 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         // If this is a new View object we're getting, then inflate the layout.
         // If not, this view already has the layout inflated from a previous call to getView,
         // and we modify the View widgets as usual.
-        /*
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.movie_item, parent, false);
+                    R.layout.movie_list_item, parent, false);
         }
 
+        /*
         ImageView iconView = (ImageView) convertView.findViewById(R.id.flavor_image);
         iconView.setImageResource(movie.image);
 
