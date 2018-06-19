@@ -8,8 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.udacity.nsutanto.popularmovies.adapter.MovieAdapter;
+import com.udacity.nsutanto.popularmovies.listener.TaskListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TaskListener {
 
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onPostExecute() {
+
     }
 
     private void init() {
