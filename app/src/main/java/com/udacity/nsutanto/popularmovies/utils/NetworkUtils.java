@@ -1,6 +1,5 @@
 package com.udacity.nsutanto.popularmovies.utils;
 
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -18,43 +17,37 @@ public final class NetworkUtils {
     public static final String BASE_URL = "https://api.themoviedb.org/3";
     public static final String API_MOST_POPULAR = "/movie/popular";
     public static final String API_TOP_RATED = "/movie/top_rated";
+    public static final String API_KEY = "api_key";
+    public static final String API_KEY_VALUE = "";
 
+    public static URL BuildPopularMovieURL() {
+        Uri popularMovieUri = Uri.parse(BASE_URL + API_MOST_POPULAR).buildUpon()
+                .appendQueryParameter(API_KEY, API_KEY_VALUE)
+                .build();
 
-
-
-    public static URL getUrl(Context context) {
-        /*
-        if (SunshinePreferences.isLocationLatLonAvailable(context)) {
-            double[] preferredCoordinates = SunshinePreferences.getLocationCoordinates(context);
-            double latitude = preferredCoordinates[0];
-            double longitude = preferredCoordinates[1];
-            return buildUrlWithLatitudeLongitude(latitude, longitude);
-        } else {
-            String locationQuery = SunshinePreferences.getPreferredWeatherLocation(context);
-            return buildUrlWithLocationQuery(locationQuery);
+        try {
+            URL popularMovieUrl = new URL(popularMovieUri.toString());
+            Log.v(TAG, "URL: " + popularMovieUrl);
+            return popularMovieUrl;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
         }
-        */
-        return null;
     }
 
-    private static URL buildUrlWithLatitudeLongitude(Double latitude, Double longitude) {
-//        Uri weatherQueryUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-//                .appendQueryParameter(LAT_PARAM, String.valueOf(latitude))
-//                .appendQueryParameter(LON_PARAM, String.valueOf(longitude))
-//                .appendQueryParameter(FORMAT_PARAM, format)
-//                .appendQueryParameter(UNITS_PARAM, units)
-//                .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
-//                .build();
-//
-//        try {
-//            URL weatherQueryUrl = new URL(weatherQueryUri.toString());
-//            Log.v(TAG, "URL: " + weatherQueryUrl);
-//            return weatherQueryUrl;
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-        return null;
+    public static URL BuildTopRatedMovieURL() {
+        Uri popularMovieUri = Uri.parse(BASE_URL + API_TOP_RATED).buildUpon()
+                .appendQueryParameter(API_KEY, API_KEY_VALUE)
+                .build();
+
+        try {
+            URL popularMovieUrl = new URL(popularMovieUri.toString());
+            Log.v(TAG, "URL: " + popularMovieUrl);
+            return popularMovieUrl;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
