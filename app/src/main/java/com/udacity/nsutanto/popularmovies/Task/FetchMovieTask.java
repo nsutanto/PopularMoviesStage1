@@ -1,26 +1,27 @@
-package com.udacity.nsutanto.popularmovies.Task;
+package com.udacity.nsutanto.popularmovies.task;
 
 import android.os.AsyncTask;
+import com.udacity.nsutanto.popularmovies.listener.TaskListener;
 
-public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
+import java.net.URL;
+
+public class FetchMovieTask extends AsyncTask<String, Integer, String> {
+
+    private TaskListener mTaskListener;
+
+    public FetchMovieTask(TaskListener listener) {
+        mTaskListener = listener;
+    }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //mLoadingIndicator.setVisibility(View.VISIBLE);
     }
 
     @Override
-    protected String[] doInBackground(String... params) {
+    protected String doInBackground(String... params) {
 
-        /* If there's no zip code, there's nothing to look up. *//*
-        if (params.length == 0) {
-            return null;
-        }
-
-        String location = params[0];
-        URL weatherRequestUrl = NetworkUtils.buildUrl(location);
-
+        /*
         try {
             String jsonWeatherResponse = NetworkUtils
                     .getResponseFromHttpUrl(weatherRequestUrl);
@@ -33,19 +34,14 @@ public class FetchMovieTask extends AsyncTask<String, Void, String[]> {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }*/
-        return null;
+        }
+        */
+        return "Test";
     }
 
     @Override
-    protected void onPostExecute(String[] weatherData) {
-        /*mLoadingIndicator.setVisibility(View.INVISIBLE);
-        if (weatherData != null) {
-            showWeatherDataView();
-            // COMPLETED (45) Instead of iterating through every string, use mForecastAdapter.setWeatherData and pass in the weather data
-            mForecastAdapter.setWeatherData(weatherData);
-        } else {
-            showErrorMessage();
-        }*/
+    protected void onPostExecute(String result) {
+        //super.onPostExecute();
+        //mTaskListener.onPostExecute();
     }
 }
