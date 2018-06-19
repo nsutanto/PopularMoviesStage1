@@ -2,10 +2,11 @@ package com.udacity.nsutanto.popularmovies.task;
 
 import android.os.AsyncTask;
 import com.udacity.nsutanto.popularmovies.listener.TaskListener;
+import com.udacity.nsutanto.popularmovies.utils.NetworkUtils;
 
 import java.net.URL;
 
-public class FetchMovieTask extends AsyncTask<String, Integer, String> {
+public class FetchMovieTask extends AsyncTask<URL, Integer, String> {
 
     private TaskListener mTaskListener;
 
@@ -19,29 +20,24 @@ public class FetchMovieTask extends AsyncTask<String, Integer, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected String doInBackground(URL... params) {
 
-        /*
+        String jsonResponse;
+        URL requestURL = params[0];
+
         try {
-            String jsonWeatherResponse = NetworkUtils
-                    .getResponseFromHttpUrl(weatherRequestUrl);
+            jsonResponse = NetworkUtils.GetResponseFromHttpUrl(requestURL);
 
-            String[] simpleJsonWeatherData = OpenWeatherJsonUtils
-                    .getSimpleWeatherStringsFromJson(MainActivity.this, jsonWeatherResponse);
-
-            return simpleJsonWeatherData;
-
+            return jsonResponse;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        */
-        return "Test";
     }
 
     @Override
     protected void onPostExecute(String result) {
         //super.onPostExecute();
-        //mTaskListener.onPostExecute();
+        mTaskListener.onPostExecute();
     }
 }
