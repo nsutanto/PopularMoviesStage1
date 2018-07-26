@@ -14,8 +14,11 @@ public class JsonUtils {
     public static final String RESULTS = "results";
     public static final String ID = "id";
     public static final String TITLE = "title";
-    public static final String OVERVIEW = "overview";
+    public static final String RELEASE_DATE = "release_date";
     public static final String POSTER_PATH = "poster_path";
+    public static final String VOTE_AVERAGE = "vote_average";
+    public static final String OVERVIEW = "overview";
+
 
     public static List<Movie> ParseMoviesJSON(String json) throws JSONException {
         ArrayList<Movie> movies = new ArrayList<>();
@@ -28,10 +31,12 @@ public class JsonUtils {
 
             int id = movie.getInt(ID);
             String title = movie.getString(TITLE);
+            String releaseDate = movie.getString(RELEASE_DATE);
             String overview = movie.getString(OVERVIEW);
-            String poster_path = movie.getString(POSTER_PATH);
+            String posterPath = movie.getString(POSTER_PATH);
+            String voteAverage = movie.getString(VOTE_AVERAGE);
 
-            Movie movieData = new Movie(id, title, overview, poster_path);
+            Movie movieData = new Movie(id, title, releaseDate, posterPath, voteAverage, overview);
             movies.add(movieData);
         }
 
