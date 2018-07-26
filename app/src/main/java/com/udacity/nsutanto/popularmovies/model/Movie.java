@@ -5,10 +5,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Movie implements Parcelable {
-    private int mId;
-    private String mTitle;
-    private String mOverview;
-    private String mPoster_Path;
+    private final int mId;
+    private final String mTitle;
+    private final String mReleaseDate;
+    private final String mPosterPath;
+    private final String mVoteAverage;
+    private final String mOverview;
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
         public Movie createFromParcel(Parcel in) {
@@ -20,12 +22,24 @@ public class Movie implements Parcelable {
         }
     };
 
-    public Movie(int id, String title, String overview, String posterPath) {
+    public Movie(int id, String title, String releaseDate, String posterPath, String voteAverage, String overview) {
         mId = id;
         mTitle = title;
+        mReleaseDate = releaseDate;
         mOverview = overview;
-        mPoster_Path = posterPath;
+        mPosterPath = posterPath;
+        mVoteAverage = voteAverage;
     }
+
+    public String GetTitle() { return mTitle; }
+
+    public String GetReleaseDate() { return mReleaseDate; }
+
+    public String GetPosterPath() { return mPosterPath; }
+
+    public String GetVoteAverage() { return mVoteAverage; }
+
+    public String GetOverview() { return mOverview; }
 
     @Override
     public int describeContents() {
@@ -36,14 +50,18 @@ public class Movie implements Parcelable {
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(mId);
         out.writeString(mTitle);
+        out.writeString(mReleaseDate);
+        out.writeString(mPosterPath);
+        out.writeString(mVoteAverage);
         out.writeString(mOverview);
-        out.writeString(mPoster_Path);
     }
 
     private Movie(Parcel in) {
         mId = in.readInt();
         mTitle = in.readString();
+        mReleaseDate = in.readString();
+        mPosterPath = in.readString();
+        mVoteAverage = in.readString();
         mOverview = in.readString();
-        mPoster_Path = in.readString();
     }
 }
