@@ -1,18 +1,17 @@
 package com.udacity.nsutanto.popularmovies.task;
 
 import android.os.AsyncTask;
-import com.udacity.nsutanto.popularmovies.listener.TaskListener;
+import com.udacity.nsutanto.popularmovies.listener.ITaskListener;
+import com.udacity.nsutanto.popularmovies.model.Movie;
+import com.udacity.nsutanto.popularmovies.utils.JsonUtils;
 import com.udacity.nsutanto.popularmovies.utils.NetworkUtils;
 
 import java.net.URL;
+import java.util.List;
 
-public class FetchMovieTask extends AsyncTask<URL, Integer, String> {
+public class FetchMovieTask extends AsyncTask<ITaskListener, Void, List<Movie>> {
 
-    private TaskListener mTaskListener;
-
-    public FetchMovieTask(TaskListener listener) {
-        mTaskListener = listener;
-    }
+    private ITaskListener mTaskListener;
 
     @Override
     protected void onPreExecute() {
@@ -20,15 +19,16 @@ public class FetchMovieTask extends AsyncTask<URL, Integer, String> {
     }
 
     @Override
-    protected String doInBackground(URL... params) {
+    protected List<Movie> doInBackground(ITaskListener... taskListeners) {
 
         String jsonResponse;
-        URL requestURL = params[0];
+        mTaskListener = taskListeners[0];
+        URL url = mTaskListener.GetURL();
 
         try {
-            jsonResponse = NetworkUtils.GetResponseFromHttpUrl(requestURL);
-
-            return jsonResponse;
+            jsonResponse = NetworkUtils.GetResponseFromHttpUrl(url);
+            List<Movie> movies = JsonUtils.ParseMoviesJSON(jsonResponse);
+            return movies;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -36,8 +36,7 @@ public class FetchMovieTask extends AsyncTask<URL, Integer, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        //super.onPostExecute();
-        mTaskListener.onPostExecute();
+    protected void onPostExecute(List<Movie> movies) {
+        mTaskListener.OnPostExecute(movies);
     }
 }
