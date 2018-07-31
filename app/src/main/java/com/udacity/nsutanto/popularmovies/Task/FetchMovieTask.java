@@ -7,19 +7,20 @@ import com.udacity.nsutanto.popularmovies.utils.JsonUtils;
 import com.udacity.nsutanto.popularmovies.utils.NetworkUtils;
 
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
 
-public class FetchMovieTask extends AsyncTask<ITaskListener, Void, List<Movie>> {
+public class FetchMovieTask extends AsyncTask<ITaskListener, Void, ArrayList<Movie>> {
 
     private ITaskListener mTaskListener;
 
     @Override
     protected void onPreExecute() {
+
         super.onPreExecute();
     }
 
     @Override
-    protected List<Movie> doInBackground(ITaskListener... taskListeners) {
+    protected ArrayList<Movie> doInBackground(ITaskListener... taskListeners) {
 
         String jsonResponse;
         mTaskListener = taskListeners[0];
@@ -27,7 +28,7 @@ public class FetchMovieTask extends AsyncTask<ITaskListener, Void, List<Movie>> 
 
         try {
             jsonResponse = NetworkUtils.GetResponseFromHttpUrl(url);
-            List<Movie> movies = JsonUtils.ParseMoviesJSON(jsonResponse);
+            ArrayList<Movie> movies = JsonUtils.ParseMoviesJSON(jsonResponse);
             return movies;
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +37,7 @@ public class FetchMovieTask extends AsyncTask<ITaskListener, Void, List<Movie>> 
     }
 
     @Override
-    protected void onPostExecute(List<Movie> movies) {
+    protected void onPostExecute(ArrayList<Movie> movies) {
         mTaskListener.OnPostExecute(movies);
     }
 }
