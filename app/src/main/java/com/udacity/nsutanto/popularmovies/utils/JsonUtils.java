@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class JsonUtils {
 
@@ -20,7 +19,7 @@ public class JsonUtils {
     public static final String OVERVIEW = "overview";
 
 
-    public static List<Movie> ParseMoviesJSON(String json) throws JSONException {
+    public static ArrayList<Movie> ParseMoviesJSON(String json) throws JSONException {
         ArrayList<Movie> movies = new ArrayList<>();
         JSONObject jsonObj = new JSONObject(json);
 
