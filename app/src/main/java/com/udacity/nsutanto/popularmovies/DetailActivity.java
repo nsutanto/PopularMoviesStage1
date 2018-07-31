@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.udacity.nsutanto.popularmovies.model.Movie;
 
 public class DetailActivity extends AppCompatActivity {
@@ -28,10 +29,8 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Movie movie = intent.getParcelableExtra("movie");
 
-
         mTitle = findViewById(R.id.title);
         mTitle.setText(movie.GetTitle());
-
 
         /*
         mImageView = findViewById(R.id.poster);
@@ -40,8 +39,9 @@ public class DetailActivity extends AppCompatActivity {
         if (posterPath.isEmpty()) {
             //mImageView.setImageResource(R.drawable.popcorn_rendered);
         } else {
-            //Picasso.with(this).
-            //        load(movie.GetPosterPath()).into(mImageView);
+            Picasso.get()
+                    .load(movie.GetPosterPath().toString())
+                    .into(mImageView);
         }
 
         mReleaseDate = findViewById(R.id.release_date);
@@ -60,7 +60,5 @@ public class DetailActivity extends AppCompatActivity {
         mOverview = findViewById(R.id.overview);
         mOverview.setText(movie.GetOverview());
         */
-
     }
-
 }
