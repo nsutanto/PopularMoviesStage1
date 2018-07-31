@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.udacity.nsutanto.popularmovies.R;
 import com.udacity.nsutanto.popularmovies.listener.ITaskListener;
 import com.udacity.nsutanto.popularmovies.model.Movie;
@@ -19,11 +20,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     private static ITaskListener mTaskListener;
     private Context context;
 
-    MovieAdapter(ITaskListener taskListener) {
+    public MovieAdapter(ITaskListener taskListener) {
         mTaskListener = taskListener;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final ImageView mPosterView;
 
         public ViewHolder(View v) {
@@ -33,7 +34,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         }
 
         public void onClick(View v) {
-            mTaskListener.StartDetailActivity();
+            mTaskListener.StartDetailActivity(mMovies.get(getAdapterPosition()));
         }
     }
 
@@ -51,8 +52,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         String posterPath = mMovies.get(position).GetPosterPath();
         if (posterPath != "") {
-            // TODO
-            //Picasso.with(context).load("BASE_URL" + "TEST").into(holder.mPosterView);
+            Picasso.get()
+                    .load(mTaskListener.GetURL().toString())
+                    .into(holder.mPosterView);
         }
     }
 
