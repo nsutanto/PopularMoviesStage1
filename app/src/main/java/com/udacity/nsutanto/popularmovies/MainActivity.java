@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ITaskListener {
         setContentView(R.layout.activity_main);
 
         initUI();
-        initRecylerView();
+        initRecyclerView();
 
         loadMovieData();
     }
@@ -58,9 +59,11 @@ public class MainActivity extends AppCompatActivity implements ITaskListener {
         int id = item.getItemId();
 
         if (id == R.id.action_popular) {
+            mSortBy = SortBy.POPULAR;
             loadMovieData();
         }
         else {
+            mSortBy = SortBy.TOP_RATED;
             loadMovieData();
         }
 
@@ -123,10 +126,10 @@ public class MainActivity extends AppCompatActivity implements ITaskListener {
 
     }
 
-    private void initRecylerView() {
+    private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.recyclerView_movie);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mMovieAdapter = new MovieAdapter(this);
