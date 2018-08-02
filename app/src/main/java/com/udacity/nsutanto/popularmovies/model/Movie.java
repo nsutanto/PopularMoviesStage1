@@ -29,9 +29,9 @@ public class Movie implements Parcelable {
         mId = id;
         mTitle = title;
         mReleaseDate = releaseDate;
-        mOverview = overview;
         mPosterPath = posterPath;
         mVoteAverage = voteAverage;
+        mOverview = overview;
     }
 
     public String GetTitle() { return mTitle; }
