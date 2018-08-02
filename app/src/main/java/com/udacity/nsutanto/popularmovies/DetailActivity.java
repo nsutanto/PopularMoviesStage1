@@ -25,41 +25,45 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        try {
+            setContentView(R.layout.activity_detail);
 
-        Intent intent = getIntent();
-        Movie movie = intent.getParcelableExtra("movie");
+            Intent intent = getIntent();
+            Movie movie = intent.getParcelableExtra("movie");
 
-        mTitle = findViewById(R.id.title);
-        mTitle.setText(movie.GetTitle());
+            mTitle = findViewById(R.id.tv_title);
+            mTitle.setText(movie.GetTitle());
 
-        /*
-        mImageView = findViewById(R.id.poster);
-        String posterPath = movie.GetPosterPath();
 
-        if (posterPath.isEmpty()) {
-            //mImageView.setImageResource(R.drawable.popcorn_rendered);
-        } else {
-            Picasso.get()
-                    .load(NetworkUtils.BASE_URL_POSTER + movie.GetPosterPath())
-                    .into(mImageView);
+            mImageView = findViewById(R.id.poster);
+            String posterPath = movie.GetPosterPath();
+
+            if (posterPath.isEmpty()) {
+                //mImageView.setImageResource(R.drawable.popcorn_rendered);
+            } else {
+                Picasso.get()
+                        .load(NetworkUtils.BASE_URL_POSTER + movie.GetPosterPath())
+                        .into(mImageView);
+            }
+
+            mReleaseDate = findViewById(R.id.tv_date);
+
+            String releaseDate = movie.GetReleaseDate();
+
+            if (releaseDate.length() > 4) {
+                releaseDate.substring(0, 4);
+            }
+            mReleaseDate.setText(releaseDate);
+
+            mVoteAverage = findViewById(R.id.tv_vote_text);
+            String voteAverage = movie.GetVoteAverage();
+            mVoteAverage.setText(voteAverage);
+
+            mOverview = findViewById(R.id.tv_overview);
+            mOverview.setText(movie.GetOverview());
+        } catch (Exception e) {
+            int k = 0;
+            k = 1;
         }
-
-        mReleaseDate = findViewById(R.id.release_date);
-
-        String releaseDate = movie.GetReleaseDate();
-
-        if (releaseDate.length() > 4) {
-            releaseDate.substring(0, 4);
-        }
-        mReleaseDate.setText(releaseDate);
-
-        mVoteAverage = findViewById(R.id.vote_average);
-        String voteAverage = movie.GetVoteAverage();
-        mVoteAverage.setText(voteAverage);
-
-        mOverview = findViewById(R.id.overview);
-        mOverview.setText(movie.GetOverview());
-        */
     }
 }
