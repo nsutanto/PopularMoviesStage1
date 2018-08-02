@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import com.udacity.nsutanto.popularmovies.R;
 import com.udacity.nsutanto.popularmovies.listener.ITaskListener;
 import com.udacity.nsutanto.popularmovies.model.Movie;
+import com.udacity.nsutanto.popularmovies.utils.NetworkUtils;
 
 import java.util.ArrayList;
 
@@ -53,7 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         String posterPath = mMovies.get(position).GetPosterPath();
         if (posterPath != "") {
             Picasso.get()
-                    .load(mTaskListener.GetURL().toString())
+                    .load(NetworkUtils.BASE_URL_POSTER + posterPath)
                     .into(holder.mPosterView);
         }
     }
