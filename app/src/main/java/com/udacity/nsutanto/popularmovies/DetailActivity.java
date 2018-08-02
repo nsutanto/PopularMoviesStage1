@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.nsutanto.popularmovies.model.Movie;
+import com.udacity.nsutanto.popularmovies.utils.NetworkUtils;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -40,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
             //mImageView.setImageResource(R.drawable.popcorn_rendered);
         } else {
             Picasso.get()
-                    .load(movie.GetPosterPath().toString())
+                    .load(NetworkUtils.BASE_URL_POSTER + movie.GetPosterPath())
                     .into(mImageView);
         }
 
