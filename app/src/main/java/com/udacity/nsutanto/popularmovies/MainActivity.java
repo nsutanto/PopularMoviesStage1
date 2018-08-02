@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.udacity.nsutanto.popularmovies.adapter.MovieAdapter;
 import com.udacity.nsutanto.popularmovies.listener.ITaskListener;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements ITaskListener {
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
     private ProgressBar mLoadingIndicator;
+    private TextView mErrorMessage;
     private SortBy mSortBy;
     private enum SortBy {
         POPULAR, TOP_RATED
@@ -73,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements ITaskListener {
         if (movies.isEmpty()) {
 
         } else {
+            mErrorMessage.setVisibility(View.INVISIBLE);
+            mLoadingIndicator.setVisibility(View.INVISIBLE);
             mMovieAdapter.setMovies(movies);
         }
     }
@@ -97,12 +102,13 @@ public class MainActivity extends AppCompatActivity implements ITaskListener {
         NetworkInfo info = cm.getActiveNetworkInfo();
 
         if (info != null && info.isConnectedOrConnecting()) {
-            // Set Loading Indicator
-            // Set Error Message
+            mErrorMessage.setVisibility(View.INVISIBLE);
+            mLoadingIndicator.setVisibility(View.VISIBLE);
             new FetchMovieTask().execute(this);
         } else {
-            // Provide error message
-            // Set Loading Indicator
+            mErrorMessage.setVisibility(View.VISIBLE);
+            mErrorMessage.setText("Fail to fetch movies");
+            mLoadingIndicator.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -112,11 +118,13 @@ public class MainActivity extends AppCompatActivity implements ITaskListener {
         setSupportActionBar(toolbar);
 
         mSortBy = SortBy.POPULAR;
-        //mLoadingIndicator = findViewById(R.id.loading_indicator);
+        mLoadingIndicator = findViewById(R.id.progressBar);
+        mErrorMessage = findViewById(R.id.errorTextView);
+
     }
 
     private void initRecylerView() {
-        mRecyclerView = findViewById(R.id.recyclerview_movie);
+        mRecyclerView = findViewById(R.id.recyclerView_movie);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
