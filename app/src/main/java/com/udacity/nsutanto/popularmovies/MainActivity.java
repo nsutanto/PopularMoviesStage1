@@ -72,10 +72,6 @@ public class MainActivity extends AppCompatActivity implements ITaskListener {
 
     public void OnPostExecute(ArrayList<Movie> movies) {
 
-        //TextView errorMessage =
-        //ProgressBar loadingIndicator
-        //RecylclerView movieGrid
-
         if (movies.isEmpty()) {
 
         } else {
