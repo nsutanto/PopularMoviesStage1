@@ -4,5 +4,5 @@
     android:id="@+id/poster_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:contentDescription="@string/poster_image_content">
-</ImageView>
+    android:layout_margin="8dp"
+    android:contentDescription="@string/poster_image_content"></ImageView>
