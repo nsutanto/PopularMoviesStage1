@@ -55,7 +55,7 @@ public class DetailActivity extends AppCompatActivity {
             }
             mReleaseDate.setText(releaseDate);
 
-            mVoteAverage = findViewById(R.id.tv_vote_text);
+            mVoteAverage = findViewById(R.id.tv_vote);
             String voteAverage = movie.GetVoteAverage();
             mVoteAverage.setText(voteAverage);
 
