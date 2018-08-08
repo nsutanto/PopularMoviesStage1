@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,45 +26,39 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            setContentView(R.layout.activity_detail);
 
-            Intent intent = getIntent();
-            Movie movie = intent.getParcelableExtra("movie");
+        setContentView(R.layout.activity_detail);
 
-            mTitle = findViewById(R.id.tv_title);
-            mTitle.setText(movie.GetTitle());
+        Intent intent = getIntent();
+        Movie movie = intent.getParcelableExtra("movie");
+
+        mTitle = findViewById(R.id.tv_title);
+        mTitle.setText(movie.GetTitle());
 
 
-            mImageView = findViewById(R.id.poster);
-            String posterPath = movie.GetPosterPath();
+        mImageView = findViewById(R.id.poster);
+        String posterPath = movie.GetPosterPath();
 
-            if (posterPath.isEmpty()) {
-                //mImageView.setImageResource(R.drawable.popcorn_rendered);
-            } else {
-                Picasso.get()
-                        .load(NetworkUtils.BASE_URL_POSTER + movie.GetPosterPath())
-                        .into(mImageView);
-            }
-
-            mReleaseDate = findViewById(R.id.tv_date);
-
-            String releaseDate = movie.GetReleaseDate();
-
-            if (releaseDate.length() > 4) {
-                releaseDate.substring(0, 4);
-            }
-            mReleaseDate.setText(releaseDate);
-
-            mVoteAverage = findViewById(R.id.tv_vote);
-            String voteAverage = movie.GetVoteAverage();
-            mVoteAverage.setText(voteAverage);
-
-            mOverview = findViewById(R.id.tv_overview);
-            mOverview.setText(movie.GetOverview());
-        } catch (Exception e) {
-            int k = 0;
-            k = 1;
+        if (!posterPath.isEmpty()) {
+            Picasso.get()
+                    .load(NetworkUtils.BASE_URL_POSTER + movie.GetPosterPath())
+                    .into(mImageView);
         }
+
+        mReleaseDate = findViewById(R.id.tv_date);
+
+        String releaseDate = movie.GetReleaseDate();
+
+        if (releaseDate.length() > 4) {
+            releaseDate.substring(0, 4);
+        }
+        mReleaseDate.setText(releaseDate);
+
+        mVoteAverage = findViewById(R.id.tv_vote);
+        String voteAverage = movie.GetVoteAverage();
+        mVoteAverage.setText(voteAverage);
+
+        mOverview = findViewById(R.id.tv_overview);
+        mOverview.setText(movie.GetOverview());
     }
 }
